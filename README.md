@@ -13,22 +13,22 @@ copy the following sources to your project:
 - source/helperfunctions.lua
 - source/Models (optional, for autocomplete)
 
+## basic usage
+
+local tmjloader = ChickenTiledLoader()
+tmjloader:loadTMJ('assets/example.tmj')
+
+and then use the methods available in the tmjloader object itself, down in the documentation
+
+To release, either let it run out of scope, or set it to nil
+
+tmjloader = nil
+
 ## example
 
 in main.lua, you can check an example of loading a TMJ file
 
 Run the project by opening it in vscode in windows and running Build and Run (Simulator).ps1
-
-You always load it like thi
-
-local tmjloader = ChickenTiledLoader()
-tmjloader:loadTMJ('assets/example.tmj')
-
-and then use the methods available in the tmjloader object itself.
-
-To release, either let it run out of scope, or set it to nil
-
-tmjloader = nil
 
 ## limitations
 
