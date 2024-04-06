@@ -20,9 +20,11 @@ tmjloader:loadTMJ('assets/example.tmj')
 ```
 and then use the methods available in the tmjloader object itself, down in the documentation
 
-To release, either let it run out of scope, or set it to nil
+To release, either let it run out of scope, or set it to nil if retaining a reference
 
+```
 tmjloader = nil
+```
 
 ## example
 
