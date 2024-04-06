@@ -6,10 +6,12 @@ Load Tiled maps in playdate ( https://www.mapeditor.org/ )
 
 ## installation
 
-copy the following sources to your project 
-source/ChickenTiledLoader.lua
-source/helperfunctions.lua
-source/Models
+copy the following sources to your project:
+
+- source/ChickenTiledLoader.lua
+- source/helperfunctions.lua
+(optional, for autocomplete)
+- source/Models
 
 ## example
 
