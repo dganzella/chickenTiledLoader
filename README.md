@@ -1,5 +1,9 @@
 # chicken Tiled Loader
 Load Tiled maps in playdate ( https://www.mapeditor.org/ )
+
+![image](https://github.com/dganzella/chickenTiledLoader/assets/30127664/49d0fb01-8ce9-4b7f-a598-5b4840685300)
+
+
 ## installation
 
 copy the following sources to your project 
