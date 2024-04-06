@@ -1,0 +1,11 @@
+---@class TMJLayer
+---@field data integer[]
+---@field objects TMJObject[]
+---@field height integer
+---@field width integer
+---@field name string
+---@field color string
+---@field visible boolean
+---@field x integer
+---@field y integer
+---@field type TMJLayerTypes

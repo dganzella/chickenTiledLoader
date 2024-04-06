@@ -1,0 +1,4 @@
+---@class TProperty
+---@field name string
+---@field type string
+---@field value string|integer|number|boolean

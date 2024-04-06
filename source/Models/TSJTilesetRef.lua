@@ -1,0 +1,3 @@
+---@class TSJTilesetRef
+---@field source string
+---@field firstgid integer

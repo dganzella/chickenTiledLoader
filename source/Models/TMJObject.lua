@@ -1,0 +1,11 @@
+---@class TMJObject
+---@field height integer
+---@field width integer
+---@field x integer
+---@field y integer
+---@field rotation number
+---@field visible boolean
+---@field name string
+---@field id integer
+---@field gid integer?
+---@field properties TProperty[]

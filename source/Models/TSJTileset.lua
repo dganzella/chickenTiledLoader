@@ -1,0 +1,11 @@
+---@class TSJTileset
+---@field image string
+---@field imageheight integer
+---@field imagewidth integer
+---@field name string
+---@field tileCount integer
+---@field tileheight integer
+---@field tilewidth integer
+---@field type string
+---@field tiles TSJTile
+---@field imagetable playdate.graphics.imagetable?
