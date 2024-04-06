@@ -34,17 +34,16 @@ Run the project by opening it in vscode in windows and running Build and Run (Si
 
 ## limitations
 
-Can only load TMJ files (Tiled map JSON format), no TMX
-Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itsekf or as a sepatate, referenced TSJ
-Only supports orthogonal maps
-The name of the images referenced in the TMJ files need to follow playdate's pattern, aka. image-table-width-height.png
+- Can only load TMJ files (Tiled map JSON format), no TMX
+- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itsekf or as a sepatate, referenced TSJ
+- Only supports orthogonal maps
+- The name of the images referenced in the TMJ files need to follow playdate's pattern, aka. image-table-width-height.png
 
 ## documentation
 
 The project supports playdate type annotations: https://github.com/Minalien/playdate-type-annotations
 
-These are all the methods.
-
+```
 ---@class ChickenTiledLoader
 ---@field root TMJRoot
 ---@field tileset TSJTileset
@@ -57,3 +56,4 @@ These are all the methods.
 ---@field getPropsObj fun(self: ChickenTiledLoader, obj: TMJObject): table<string, string|integer|number|boolean>
 ---@field getPropsTile fun(self: ChickenTiledLoader, gid: integer): table<string, string|integer|number|boolean>
 ---@field getGidAtLayerPos fun(self: ChickenTiledLoader, x: integer, y: integer, layer: TMJLayer): integer
+```
