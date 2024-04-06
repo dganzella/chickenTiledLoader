@@ -1,83 +1,51 @@
-# actualMask
-adds the ability to set an actual image Mask on Playdate -- works similar to masking in unity/cocos/photoshop and I guess most softwares that use masks
+# chicken Tiled Loader
+Load Tiled maps in playdate ( https://www.mapeditor.org/ )
 ## installation
 
-just copy source/actualMask.lua in your project, or the code below
+copy the following sources to your project 
+source/ChickenTiledLoader.lua
+source/helperfunctions.lua
+source/Models
 
-```lua
-function setAnActualMaskToImage(image, mask)
-	local maskCopy = mask:copy()
+## example
 
-	gfx.pushContext(maskCopy)
-	gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
-	image:draw(0, 0)
-	gfx.setImageDrawMode(gfx.kDrawModeXOR)
-	mask:draw(0, 0)
-	gfx.popContext()
+in main.lua, you can check an example of loading a TMJ file
 
-	image:setMaskImage(maskCopy)
-end
-```
+Run the project by opening it in vscode in windows and running Build and Run (Simulator).ps1
 
-## problem
-although playdate SDK images support image masking with the method [setMaskImage](https://sdk.play.date/inside-playdate/#m-graphics.image.setMaskImage), there seems to be a problem -- it will override the resulting masked-image with black even if the souce of the image is transparent
+You always load it like thi
 
-## solution
+local tmjloader = ChickenTiledLoader()
+tmjloader:loadTMJ('assets/example.tmj')
 
-let's start by having a simple 16x16 stickman being drawn in front of a diagonal pattern
+and then use the methods available in the tmjloader object itself.
 
-<img alt="stickman" src="readmeImgs/image8.png" width="200" height="200">
+To release, either let it run out of scope, or set it to nil
 
-```lua
-img = gfx.image.new('assets/images/stickman')
+tmjloader = nil
 
-function playdate.update()
-	gfx.setDitherPattern(.5, gfx.image.kDitherTypeDiagonalLine)
-	gfx.fillRect(0, 0, 100, 100)
-	img:draw(42, 42)
-end
-```
+## limitations
 
+Can only load TMJ files (Tiled map JSON format), no TMX
+Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itsekf or as a sepatate, referenced TSJ
+Only supports orthogonal maps
+The name of the images referenced in the TMJ files need to follow playdate's pattern, aka. image-table-width-height.png
 
-<img alt="initialSituation" src="readmeImgs/image.png" width="200" height="200">
+## documentation
 
-Simple and clean. Now Lets try to add a mask to it that will cover only the top 8 rows of the stickman -- their head. Remember that white means draw, black means do not draw.
+The project supports playdate type annotations: https://github.com/Minalien/playdate-type-annotations
 
-<img alt="mask" src="readmeImgs/image9.png" width="200" height="200">
+These are all the methods.
 
-
-```lua
-mask = gfx.image.new('assets/images/mask')
-img:setMaskImage(mask)
-```
-
-<img alt="wtf" src="readmeImgs/image2.png" width="200" height="200">
-
-So what happened? Although the body and feet from the stickman are not drawn as expected, there is now a black background besides the head! We do not want that, since the source image did not have any pixels set there.
-
-Why does this happen? No Idea. But thats not what I expect from masking at all, that is for sure.
-
-Now lets use the magic function setAnActualMaskToImage
-
-```lua
-mask = gfx.image.new('assets/images/mask')
-setAnActualMaskToImage(img, mask)
-```
-
-<img alt="correct" src="readmeImgs/image3.png" width="200" height="200">
-
-Awesome! this is how masks are supposed to work!
-
-## how Does actualMask work?
-
-we begin by making a copy of the original mask, add it to a context in order to draw inside it, then draw the source image on it but with kDrawModeFillBlack, this is the resulting image
-
-<img alt="correct" src="readmeImgs/image5.png" width="200" height="200">
-
-next, we draw the original mask on top of the mask copy, but with kDrawModeXOR
-
-<img alt="correct" src="readmeImgs/image6.png" width="200" height="200">
-
-this is the final result, that we set back as the official image mask so playdate can properly draw it
-
-<img alt="correct" src="readmeImgs/image7.png" width="200" height="200">
+---@class ChickenTiledLoader
+---@field root TMJRoot
+---@field tileset TSJTileset
+---@field tilesetImageTable playdate.graphics.imagetable?
+---@field tileMapsByLayer table<string, playdate.graphics.tilemap>
+---@field loadTMJ fun(self: ChickenTiledLoader, path: string)
+---@field getTileMapForLayer fun(self: ChickenTiledLoader, layerName: string): playdate.graphics.tilemap
+---@field getObjectsForLayer fun(self: ChickenTiledLoader, layerName: string): TMJObject[]
+---@field getLayerByName fun(self: ChickenTiledLoader, layerName: string): TMJLayer
+---@field getPropsObj fun(self: ChickenTiledLoader, obj: TMJObject): table<string, string|integer|number|boolean>
+---@field getPropsTile fun(self: ChickenTiledLoader, gid: integer): table<string, string|integer|number|boolean>
+---@field getGidAtLayerPos fun(self: ChickenTiledLoader, x: integer, y: integer, layer: TMJLayer): integer
