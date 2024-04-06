@@ -10,8 +10,7 @@ copy the following sources to your project:
 
 - source/ChickenTiledLoader.lua
 - source/helperfunctions.lua
-(optional, for autocomplete)
-- source/Models
+- source/Models (optional, for autocomplete)
 
 ## example
 
