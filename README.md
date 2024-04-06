@@ -14,10 +14,10 @@ copy the following sources to your project:
 - source/Models (optional, for autocomplete)
 
 ## basic usage
-
+```
 local tmjloader = ChickenTiledLoader()
 tmjloader:loadTMJ('assets/example.tmj')
-
+```
 and then use the methods available in the tmjloader object itself, down in the documentation
 
 To release, either let it run out of scope, or set it to nil
