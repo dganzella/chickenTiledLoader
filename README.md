@@ -15,6 +15,8 @@ copy the following sources to your project:
 
 ## basic usage
 ```
+import 'ChickenTiledLoader'
+
 local tmjloader = ChickenTiledLoader()
 tmjloader:loadTMJ('assets/example.tmj')
 ```
