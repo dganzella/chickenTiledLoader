@@ -11,7 +11,7 @@ copy the following sources to your project:
 
 - source/ChickenTiledLoader.lua
 - source/helperfunctions.lua
-- source/Models (optional, for autocomplete)
+- source/Models/*.lua (optional, for autocomplete)
 
 ## basic usage
 ```
