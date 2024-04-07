@@ -35,7 +35,7 @@ Run the project by opening it in vscode in windows and running Build and Run (Si
 ## limitations
 
 - Can only load TMJ files (Tiled map JSON format), no TMX
-- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itself or as a sepatate, referenced TSJ
+- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itself or as a sepatate, referenced TSJ. Multiple TMJ files can reference the same TSJ tileset, no problem.
 - Only supports orthogonal maps
 - The name of the images referenced in the TMJ files need to follow playdate's pattern, aka. image-table-width-height.png
 
