@@ -6,6 +6,7 @@
 ---@field rotation number
 ---@field visible boolean
 ---@field name string
+---@field type string
 ---@field id integer
 ---@field gid integer?
 ---@field properties TProperty[]

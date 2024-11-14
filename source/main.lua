@@ -3,7 +3,7 @@ import 'CoreLibs/graphics'
 import 'CoreLibs/object'
 import 'CoreLibs/sprites'
 
-import 'ChickenTiledLoader'
+import 'ChickenTMJLoader'
 
 gfx = playdate.graphics
 geo = playdate.geometry
@@ -12,7 +12,7 @@ playdate.display.setRefreshRate(30)
 gfx.sprite.setAlwaysRedraw(true)
 
 ---tmj loading
-local tmjloader = ChickenTiledLoader()
+local tmjloader = ChickenTMJLoader()
 tmjloader:loadTMJ('assets/example.tmj')
 
 ---creating sprites for tile layers
@@ -44,25 +44,30 @@ local mapYTiles = tmjloader.root.height
 local tileWidth = tmjloader.root.tilewidth
 local tileHeight = tmjloader.root.tileheight
 
+
+local tileGidsThatAreNotGrounds = {}
+
 for i = 1, mapXTiles do
 	for j = 1, mapYTiles do
 		local inmappos = geo.vector2D.new(i * tileWidth - tileWidth, j * tileHeight - tileHeight)
 
 		local gid = tmjloader:getGidAtLayerPos(i, j, floor)
-		if gid ~= nil then
+		if gid ~= nil and gid > 0 then
 			local properties = tmjloader:getPropsTile(gid)
 
-			if properties.solid then
-				local collision = gfx.sprite.new()
+			print(gid, properties.solid)
 
-				collision:moveTo(inmappos.x, inmappos.y)
-				collision:setCollideRect(0, 0, 16, 16)
-
-				collision:add()
+			if not (properties.solid == true) then
+				if not arrContains(tileGidsThatAreNotGrounds, gid + 1) then
+					table.insert(tileGidsThatAreNotGrounds, gid + 1)
+				end
 			end
 		end
 	end
 end
+
+
+playdate.graphics.sprite.addWallSprites(tmjloader.tileMapsByLayer['floor'], tileGidsThatAreNotGrounds)
 
 ---creating character
 

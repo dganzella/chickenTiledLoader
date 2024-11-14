@@ -1,0 +1,6 @@
+---@class TMJMap
+---@field fileName string
+---@field x integer
+---@field y integer
+---@field width integer
+---@field height integer

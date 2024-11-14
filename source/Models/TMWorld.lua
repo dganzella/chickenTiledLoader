@@ -1,0 +1,2 @@
+---@class TMWorld
+---@field maps TMJMap[]

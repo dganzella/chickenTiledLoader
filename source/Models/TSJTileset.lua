@@ -7,5 +7,5 @@
 ---@field tileheight integer
 ---@field tilewidth integer
 ---@field type string
----@field tiles TSJTile
+---@field tiles TSJTile[]
 ---@field imagetable playdate.graphics.imagetable?
