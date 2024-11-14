@@ -9,15 +9,15 @@ Load Tiled maps in playdate ( https://www.mapeditor.org/ )
 
 copy the following sources to your project:
 
-- source/ChickenTiledLoader.lua
+- source/ChickenTMJLoader.lua
 - source/helperfunctions.lua
 - source/Models/*.lua (optional, for autocomplete)
 
 ## basic usage
 ```
-import 'ChickenTiledLoader'
+import 'ChickenTMJLoader'
 
-local tmjloader = ChickenTiledLoader()
+local tmjloader = ChickenTMJLoader()
 tmjloader:loadTMJ('assets/example.tmj')
 ```
 and then use the methods available in the tmjloader object itself, down in the documentation
@@ -33,6 +33,17 @@ tmjloader = nil
 in main.lua, you can check an example of loading a TMJ file
 
 Run the project by opening it in vscode in windows and running Build and Run (Simulator).ps1
+
+## world loading
+
+The library now supports world loading
+
+```
+    self.tmxWorldLoader = ChickenTMWorld()
+    self.tmxWorldLoader:loadTMWorld('example.world')
+```
+
+The world contains a table of TMJMap to ChickenTMJLoader in its map field maps
 
 ## limitations
 
@@ -58,4 +69,11 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 ---@field getPropsObj fun(self: ChickenTiledLoader, obj: TMJObject): table<string, string|integer|number|boolean>
 ---@field getPropsTile fun(self: ChickenTiledLoader, gid: integer): table<string, string|integer|number|boolean>
 ---@field getGidAtLayerPos fun(self: ChickenTiledLoader, x: integer, y: integer, layer: TMJLayer): integer
+```
+
+```
+---@class ChickenTMWorld
+---@field maps table<TMJMap, ChickenTMJLoader>
+---@field world TMWorld
+---@field loadTMWorld fun(self: ChickenTMWorld, path: string)
 ```
