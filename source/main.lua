@@ -53,7 +53,7 @@ for i = 1, mapXTiles do
 
 		local gid = tmjloader:getGidAtLayerPos(i, j, floor)
 		if gid ~= nil and gid > 0 then
-			local properties = tmjloader:getPropsTile(gid)
+			local properties = tmjloader:getPropsTileOfGid(gid)
 
 			print(gid, properties.solid)
 

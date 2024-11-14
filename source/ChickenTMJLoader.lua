@@ -130,14 +130,14 @@ function ChickenTMJLoader:loadTMJ(path)
 		self.tileset = self.root.tilesets[1] --[[@as TSJTileset]]
 	end
 
-	if ChickenTMJLoader.cachedTilesetImageTables[self.tileset.image] == nil then
+	if ChickenTMJLoader.cachedImageTables[self.tileset.image] == nil then
 		local tilesetImageName = folderPath .. self.tileset.image
 
 		tilesetImageName = tilesetImageName:sub(1, strFirstIndexOf(tilesetImageName, '-table-') - 1)
 
 		local tilesetImageTable = playdate.graphics.imagetable.new(tilesetImageName)
 
-		ChickenTMJLoader.cachedTilesetImageTables[self.tileset.image] = tilesetImageTable
+		ChickenTMJLoader.cachedImageTables[self.tileset.image] = tilesetImageTable
 	end
 
 	---@type TMJLayer[]
@@ -149,7 +149,7 @@ function ChickenTMJLoader:loadTMJ(path)
 		local layer = tileLayers[i]
 
 		local tilemap = playdate.graphics.tilemap.new()
-		tilemap:setImageTable(tilesetImageTable)
+		tilemap:setImageTable(ChickenTMJLoader.cachedImageTables[self.tileset.image])
 
 		tilemap:setSize(layer.width, layer.height)
 
