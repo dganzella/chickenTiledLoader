@@ -36,36 +36,27 @@ end
 
 ---creating collision for floor
 
----@type TMJLayer
-local floor = tmjloader:getLayerByName('floor')
+local tileGidsThatAreGrounds = {}
 
-local mapXTiles = tmjloader.root.width
-local mapYTiles = tmjloader.root.height
-local tileWidth = tmjloader.root.tilewidth
-local tileHeight = tmjloader.root.tileheight
+for i = 1, #tmjloader.tileset.tiles do
+	local tile = tmjloader.tileset.tiles[i]
 
+	local properties = tmjloader:getPropsOfTile(tile)
 
-local tileGidsThatAreNotGrounds = {}
-
-for i = 1, mapXTiles do
-	for j = 1, mapYTiles do
-		local inmappos = geo.vector2D.new(i * tileWidth - tileWidth, j * tileHeight - tileHeight)
-
-		local gid = tmjloader:getGidAtLayerPos(i, j, floor)
-		if gid ~= nil and gid > 0 then
-			local properties = tmjloader:getPropsTileOfGid(gid)
-
-			print(gid, properties.solid)
-
-			if not (properties.solid == true) then
-				if not arrContains(tileGidsThatAreNotGrounds, gid + 1) then
-					table.insert(tileGidsThatAreNotGrounds, gid + 1)
-				end
-			end
+	if properties.solid == true then
+		if not arrContains(tileGidsThatAreGrounds, tile.id + 1) then
+			table.insert(tileGidsThatAreGrounds, tile.id + 1)
 		end
 	end
 end
 
+local tileGidsThatAreNotGrounds = {}
+
+for i = 1, tmjloader.tileset.tilecount do
+	if not arrContains(tileGidsThatAreGrounds, i) then
+		table.insert(tileGidsThatAreNotGrounds, i)
+	end
+end
 
 playdate.graphics.sprite.addWallSprites(tmjloader.tileMapsByLayer['floor'], tileGidsThatAreNotGrounds)
 
@@ -92,9 +83,7 @@ if mainobjs ~= nil then
 		if obj.name == 'Char' then
 			print('create char here, speed: ' .. tostring(properties.speed))
 
-			local table = gfx.imagetable.new('assets/example')
-
-			local char = gfx.sprite.new(table:getImage(4))
+			local char = gfx.sprite.new(tmjloader:getTileImageByGid(obj.gid))
 
 			char:moveTo(inmappos.x, inmappos.y)
 			char:setZIndex(5)

@@ -19,6 +19,7 @@ TMJLayerTypes = { ---@class TMJLayerTypes.*
 ---@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, string|integer|number|boolean>
 ---@field getGidAtLayerPos fun(self: ChickenTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
 ---@field releaseTilemaps fun(self: ChickenTMJLoader)
+---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
 
 class('ChickenTMJLoader').extends()
 
@@ -37,6 +38,13 @@ end
 ---@param self ChickenTMJLoader
 function ChickenTMJLoader:releaseTilemaps()
 	self.tileMapsByLayer = {}
+end
+
+---@param self ChickenTMJLoader
+---@param gid integer
+---@return playdate.graphics.image?
+function ChickenTMJLoader:getTileImageByGid(gid)
+	return ChickenTMJLoader.cachedImageTables[self.tileset.image]:getImage(gid)
 end
 
 ---@param self ChickenTMJLoader

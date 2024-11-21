@@ -3,7 +3,7 @@
 ---@field imageheight integer
 ---@field imagewidth integer
 ---@field name string
----@field tileCount integer
+---@field tilecount integer
 ---@field tileheight integer
 ---@field tilewidth integer
 ---@field type string
