@@ -2,7 +2,7 @@
 Load Tiled maps in playdate ( https://www.mapeditor.org/ )
 
 ![image](https://github.com/dganzella/chickenTiledLoader/assets/30127664/4c71ca16-abd9-410b-9f04-4c87b9eed6e1)
-![image](https://github.com/dganzella/chickenTiledLoader/assets/30127664/8dbf0a28-20ac-43b4-b99f-7c1d426d5180)
+![image](https://github.com/user-attachments/assets/2f45008e-ecdb-4308-9517-b6feafe0e5c2)
 
 
 ## installation
