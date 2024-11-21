@@ -75,7 +75,8 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 
 ```
 ---@class ChickenTMWorld
----@field maps table<TMJMap, ChickenTMJLoader>
+---@field maps table<string, ChickenTMJLoader>
+---@field mapdefs table<string, TMJMap>
 ---@field world TMWorld
 ---@field loadTMWorld fun(self: ChickenTMWorld, path: string)
 ```
