@@ -1,5 +1,6 @@
 ---@class ChickenTMWorld
----@field maps table<TMJMap, ChickenTMJLoader>
+---@field maps table<string, ChickenTMJLoader>
+---@field mapdefs table<string, TMJMap>
 ---@field world TMWorld
 ---@field loadTMWorld fun(self: ChickenTMWorld, path: string)
 
@@ -8,6 +9,7 @@ class('ChickenTMWorld').extends()
 ---@param self ChickenTMWorld
 function ChickenTMWorld:init()
 	self.maps = {}
+	self.mapdefs = {}
 end
 
 ---@param self ChickenTMWorld
@@ -20,6 +22,10 @@ function ChickenTMWorld:loadTMWorld(path)
 
 		local singleMap = ChickenTMJLoader()
 		singleMap:loadTMJ(map.fileName)
-		self.maps[map] = singleMap
+
+		local mapName = strReplace(map.fileName, '.tmj', '')
+
+		self.maps[mapName] = singleMap
+		self.mapdefs[mapName] = map
 	end
 end
