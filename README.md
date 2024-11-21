@@ -69,6 +69,7 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 ---@field getPropsObj fun(self: ChickenTiledLoader, obj: TMJObject): table<string, string|integer|number|boolean>
 ---@field getPropsTile fun(self: ChickenTiledLoader, gid: integer): table<string, string|integer|number|boolean>
 ---@field getGidAtLayerPos fun(self: ChickenTiledLoader, x: integer, y: integer, layer: TMJLayer): integer
+---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
 ```
 
 ```
