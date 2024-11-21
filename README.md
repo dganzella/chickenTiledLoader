@@ -22,12 +22,6 @@ tmjloader:loadTMJ('assets/example.tmj')
 ```
 and then use the methods available in the tmjloader object itself, down in the documentation
 
-To release, either let it run out of scope, or set it to nil if retaining a reference
-
-```
-tmjloader = nil
-```
-
 ## example
 
 in main.lua, you can check an example of loading a TMJ file
@@ -41,16 +35,16 @@ The library now supports world loading
 ```
     local tmxWorldLoader = ChickenTMWorld()
     tmxWorldLoader:loadTMWorld('example.world')
-    printTable(tmxWorldLoader.maps['entrance'])
+    local tmjloader = tmxWorldLoader.maps['example.tsj']
 ```
 
 The world contains a table of TMJMap to ChickenTMJLoader called ```maps```
 
-To release, either let it run out of scope, or set it to nil if retaining a reference
+## releasing data
 
-```
-tmxWorldLoader = nil
-```
+To release most resources, let the variables run out of scope, and make sure not to keep any reference.
+
+To release resources completely, you need to call ChickenTMJLoader.releaseCachedImageTables() to release cached image tables. They are kept cached so they dont load multiple copies over and over again for multiple files that point to the same image tilesets
 
 ## limitations
 
