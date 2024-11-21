@@ -17,7 +17,7 @@ copy the following sources to your project:
 ```
 import 'ChickenTMJLoader'
 
-local tmjloader = ChickenTMJLoader()
+local tmjloader = ChickenTMJLoader.new()
 tmjloader:loadTMJ('assets/example.tmj')
 ```
 and then use the methods available in the tmjloader object itself, down in the documentation
@@ -33,7 +33,7 @@ Run the project by opening it in vscode in windows and running Build and Run (Si
 The library now supports world loading
 
 ```
-    local tmxWorldLoader = ChickenTMWorld()
+    local tmxWorldLoader = ChickenTMWorld.new()
     tmxWorldLoader:loadTMWorld('example.world')
     local tmjloader = tmxWorldLoader.maps['example']
 ```

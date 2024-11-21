@@ -21,7 +21,13 @@ TMJLayerTypes = { ---@class TMJLayerTypes.*
 ---@field releaseTilemaps fun(self: ChickenTMJLoader)
 ---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
 
+
+ChickenTMJLoader = {}
+---@return ChickenTMJLoader
+function ChickenTMJLoader.new() return {} end
+
 class('ChickenTMJLoader').extends()
+ChickenTMJLoader.new = ChickenTMJLoader
 
 ---@type table<string, playdate.graphics.imagetable?>
 ChickenTMJLoader.cachedImageTables = {}

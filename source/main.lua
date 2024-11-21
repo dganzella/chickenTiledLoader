@@ -12,7 +12,7 @@ playdate.display.setRefreshRate(30)
 gfx.sprite.setAlwaysRedraw(true)
 
 ---tmj loading
-local tmjloader = ChickenTMJLoader()
+local tmjloader = ChickenTMJLoader.new()
 tmjloader:loadTMJ('assets/example.tmj')
 
 ---creating sprites for tile layers

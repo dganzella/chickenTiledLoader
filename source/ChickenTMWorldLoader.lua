@@ -4,7 +4,12 @@
 ---@field world TMWorld
 ---@field loadTMWorld fun(self: ChickenTMWorld, path: string)
 
+ChickenTMWorld = {}
+---@return ChickenTMWorld
+function ChickenTMWorld.new() return {} end
+
 class('ChickenTMWorld').extends()
+ChickenTMWorld.new = ChickenTMWorld
 
 ---@param self ChickenTMWorld
 function ChickenTMWorld:init()
