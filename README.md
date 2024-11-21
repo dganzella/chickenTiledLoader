@@ -41,17 +41,16 @@ The library now supports world loading
 ```
     local tmxWorldLoader = ChickenTMWorld()
     tmxWorldLoader:loadTMWorld('example.world')
+    printTable(tmxWorldLoader.maps['entrance'])
 ```
 
-The world contains a table of TMJMap to ChickenTMJLoader in its field maps
+The world contains a table of TMJMap to ChickenTMJLoader called ```maps```
 
 To release, either let it run out of scope, or set it to nil if retaining a reference
 
 ```
 tmxWorldLoader = nil
 ```
-
-Make sure to not retain any reference to the ChickenTMJLoader if you want the garbage collector to completely clean it up
 
 ## limitations
 
