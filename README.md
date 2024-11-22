@@ -44,7 +44,7 @@ The world contains a table of tsj map name to ChickenTMJLoader called ```maps```
 
 To release most resources, let the variables run out of scope, and make sure not to keep any reference.
 
-To release resources completely, you need to call ChickenTMJLoader.releaseCachedImageTables() to release cached image tables. They are kept cached so they dont load multiple copies over and over again for multiple files that point to the same image tilesets
+To release resources completely, you need to call ```ChickenTMJLoader.releaseCachedImageTables()``` to release cached image tables. They are kept cached so they dont load multiple copies over and over again for multiple files that point to the same image tilesets
 
 ## limitations
 
