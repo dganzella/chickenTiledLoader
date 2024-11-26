@@ -33,7 +33,7 @@ Run the project by opening it in vscode in windows and running Build and Run (Si
 The library now supports world loading
 
 ```
-    local tmxWorldLoader = ChickenTMWorld.new()
+    local tmxWorldLoader = ChickenTMWorldLoader.new()
     tmxWorldLoader:loadTMWorld('example.world')
     local tmjloader = tmxWorldLoader.maps['example']
 ```
@@ -74,9 +74,9 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 ```
 
 ```
----@class ChickenTMWorld
+---@class ChickenTMWorldLoader
 ---@field maps table<string, ChickenTMJLoader>
 ---@field mapdefs table<string, TMJMap>
 ---@field world TMWorld
----@field loadTMWorld fun(self: ChickenTMWorld, path: string)
+---@field loadTMWorld fun(self: ChickenTMWorldLoader, path: string)
 ```

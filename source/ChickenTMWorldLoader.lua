@@ -1,25 +1,25 @@
----@class ChickenTMWorld
+---@class ChickenTMJLoader
 ---@field maps table<string, ChickenTMJLoader>
 ---@field mapdefs table<string, TMJMap>
 ---@field world TMWorld
----@field loadTMWorld fun(self: ChickenTMWorld, path: string)
+---@field loadTMWorld fun(self: ChickenTMWorldLoader, path: string)
 
-ChickenTMWorld = {}
----@return ChickenTMWorld
-function ChickenTMWorld.new() return {} end
+ChickenTMWorldLoader = {}
+---@return ChickenTMWorldLoader
+function ChickenTMWorldLoader.new() return {} end
 
-class('ChickenTMWorld').extends()
-ChickenTMWorld.new = ChickenTMWorld
+class('ChickenTMWorldLoader').extends()
+ChickenTMWorldLoader.new = ChickenTMWorldLoader
 
----@param self ChickenTMWorld
-function ChickenTMWorld:init()
+---@param self ChickenTMWorldLoader
+function ChickenTMWorldLoader:init()
 	self.maps = {}
 	self.mapdefs = {}
 end
 
----@param self ChickenTMWorld
+---@param self ChickenTMWorldLoader
 ---@param path string
-function ChickenTMWorld:loadTMWorld(path)
+function ChickenTMWorldLoader:loadTMWorld(path)
 	self.world = json.decodeFile(path)
 
 	for i = 1, #self.world.maps do
