@@ -224,3 +224,11 @@ function arrSome(arr, f)
 
 	return false
 end
+
+--path
+---@param str string
+---@param sep string?
+function getPath(str, sep)
+	sep = sep or '/'
+	return str:match('(.*' .. sep .. ')')
+end

@@ -25,8 +25,8 @@ function ChickenTMWorldLoader:loadTMWorld(path)
 	for i = 1, #self.world.maps do
 		local map = self.world.maps[i]
 
-		local singleMap = ChickenTMJLoader()
-		singleMap:loadTMJ(map.fileName)
+		local singleMap = ChickenTMJLoader.new()
+		singleMap:loadTMJ(getPath(path) .. map.fileName)
 
 		local mapName = strReplace(map.fileName, '.tmj', '')
 
