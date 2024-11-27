@@ -140,7 +140,6 @@ function ChickenTMJLoader:loadTMJ(path)
 
 	local folderPath = getPath(path)
 
-
 	if self.root.tilesets[1].source ~= nil then
 		self.tileset = json.decodeFile(folderPath .. self.root.tilesets[1].source)
 		self.finalImagePath = folderPath .. getPath(self.root.tilesets[1].source) .. self.tileset.image
