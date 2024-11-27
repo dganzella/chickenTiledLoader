@@ -9,6 +9,7 @@ TMJLayerTypes = { ---@class TMJLayerTypes.*
 ---@class ChickenTMJLoader
 ---@field root TMJRoot
 ---@field tileset TSJTileset
+---@field finalImagePath string
 ---@field tileMapsByLayer table<string, playdate.graphics.tilemap>
 ---@field loadTMJ fun(self: ChickenTMJLoader, path: string)
 ---@field getTileMapForLayer fun(self: ChickenTMJLoader, layerName: string): playdate.graphics.tilemap
@@ -39,6 +40,7 @@ end
 ---@param self ChickenTMJLoader
 function ChickenTMJLoader:init()
 	self.tileMapsByLayer = {}
+	self.finalImagePath = ''
 end
 
 ---@param self ChickenTMJLoader
@@ -50,7 +52,7 @@ end
 ---@param gid integer
 ---@return playdate.graphics.image?
 function ChickenTMJLoader:getTileImageByGid(gid)
-	return ChickenTMJLoader.cachedImageTables[self.tileset.image]:getImage(gid)
+	return ChickenTMJLoader.cachedImageTables[self.finalImagePath]:getImage(gid)
 end
 
 ---@param self ChickenTMJLoader
@@ -136,22 +138,22 @@ end
 function ChickenTMJLoader:loadTMJ(path)
 	self.root = json.decodeFile(path)
 
-	local folderPath = path:sub(1, strLastIndexOf(path, '/'))
+	local folderPath = getPath(path)
+
 
 	if self.root.tilesets[1].source ~= nil then
 		self.tileset = json.decodeFile(folderPath .. self.root.tilesets[1].source)
+		self.finalImagePath = folderPath .. getPath(self.root.tilesets[1].source) .. self.tileset.image
 	else
 		self.tileset = self.root.tilesets[1] --[[@as TSJTileset]]
+		self.finalImagePath = folderPath .. self.tileset.image
 	end
 
-	if ChickenTMJLoader.cachedImageTables[self.tileset.image] == nil then
-		local tilesetImageName = folderPath .. self.tileset.image
+	if ChickenTMJLoader.cachedImageTables[self.finalImagePath] == nil then
+		local tilesetPathWithoutTable = self.finalImagePath:sub(1, strFirstIndexOf(self.finalImagePath, '-table-') - 1)
 
-		tilesetImageName = tilesetImageName:sub(1, strFirstIndexOf(tilesetImageName, '-table-') - 1)
-
-		local tilesetImageTable = playdate.graphics.imagetable.new(tilesetImageName)
-
-		ChickenTMJLoader.cachedImageTables[self.tileset.image] = tilesetImageTable
+		ChickenTMJLoader.cachedImageTables[self.finalImagePath] = playdate.graphics.imagetable.new(
+			tilesetPathWithoutTable)
 	end
 
 	---@type TMJLayer[]
@@ -163,7 +165,7 @@ function ChickenTMJLoader:loadTMJ(path)
 		local layer = tileLayers[i]
 
 		local tilemap = playdate.graphics.tilemap.new()
-		tilemap:setImageTable(ChickenTMJLoader.cachedImageTables[self.tileset.image])
+		tilemap:setImageTable(ChickenTMJLoader.cachedImageTables[self.finalImagePath])
 
 		tilemap:setSize(layer.width, layer.height)
 
