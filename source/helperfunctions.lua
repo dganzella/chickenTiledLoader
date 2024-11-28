@@ -49,7 +49,7 @@ end
 ---@return string[]
 function strSplit(inputstr, sep)
 	local t = {}
-	for str in str.gmatch(inputstr, '([^' .. sep .. ']+)') do
+	for str in string.gmatch(inputstr, '([^' .. sep .. ']+)') do
 		table.insert(t, str)
 	end
 	return t
@@ -60,7 +60,7 @@ end
 ---@return string[]
 function gmatchAsArray(inputstr, regexp)
 	local t = {}
-	for str in str.gmatch(inputstr, regexp) do
+	for str in string.gmatch(inputstr, regexp) do
 		table.insert(t, str)
 	end
 	return t
