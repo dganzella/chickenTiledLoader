@@ -58,18 +58,20 @@ To release resources completely, you need to call ```ChickenTMJLoader.releaseCac
 The project supports playdate type annotations: https://github.com/Minalien/playdate-type-annotations
 
 ```
----@class ChickenTiledLoader
+---@class ChickenTMJLoader
 ---@field root TMJRoot
 ---@field tileset TSJTileset
----@field tilesetImageTable playdate.graphics.imagetable?
+---@field finalImagePath string
 ---@field tileMapsByLayer table<string, playdate.graphics.tilemap>
----@field loadTMJ fun(self: ChickenTiledLoader, path: string)
----@field getTileMapForLayer fun(self: ChickenTiledLoader, layerName: string): playdate.graphics.tilemap
----@field getObjectsForLayer fun(self: ChickenTiledLoader, layerName: string): TMJObject[]
----@field getLayerByName fun(self: ChickenTiledLoader, layerName: string): TMJLayer
----@field getPropsObj fun(self: ChickenTiledLoader, obj: TMJObject): table<string, string|integer|number|boolean>
----@field getPropsTile fun(self: ChickenTiledLoader, gid: integer): table<string, string|integer|number|boolean>
----@field getGidAtLayerPos fun(self: ChickenTiledLoader, x: integer, y: integer, layer: TMJLayer): integer
+---@field loadTMJ fun(self: ChickenTMJLoader, path: string)
+---@field getTileMapForLayer fun(self: ChickenTMJLoader, layerName: string): playdate.graphics.tilemap
+---@field getObjectsForLayer fun(self: ChickenTMJLoader, layerName: string): TMJObject[]
+---@field getLayerByName fun(self: ChickenTMJLoader, layerName: string): TMJLayer
+---@field getPropsObj fun(self: ChickenTMJLoader, obj: TMJObject): table<string, string|integer|number|boolean>
+---@field getPropsTileOfGid fun(self: ChickenTMJLoader, gid: integer): table<string, string|integer|number|boolean>
+---@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, string|integer|number|boolean>
+---@field getGidAtLayerPos fun(self: ChickenTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
+---@field releaseTilemaps fun(self: ChickenTMJLoader)
 ---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
 ```
 

@@ -1,4 +1,4 @@
----@class ChickenTMJLoader
+---@class ChickenTMWorldLoader
 ---@field maps table<string, ChickenTMJLoader>
 ---@field mapdefs table<string, TMJMap>
 ---@field world TMWorld
