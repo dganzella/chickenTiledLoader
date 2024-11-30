@@ -77,8 +77,10 @@ end
 function ChickenTMJLoader:getPropsObj(obj)
 	local ret = {}
 
-	for i = 1, #obj.properties do
-		ret[obj.properties[i].name] = obj.properties[i].value
+	if obj.properties ~= nil then
+		for i = 1, #obj.properties do
+			ret[obj.properties[i].name] = obj.properties[i].value
+		end
 	end
 
 	return ret
