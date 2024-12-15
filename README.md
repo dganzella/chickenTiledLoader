@@ -10,6 +10,7 @@ Load Tiled maps in playdate ( https://www.mapeditor.org/ )
 copy the following sources to your project:
 
 - source/ChickenTMJLoader.lua
+- source/ChickenTMWorldLoader.lua
 - source/helperfunctions.lua
 - source/Models/*.lua (optional, for autocomplete)
 
