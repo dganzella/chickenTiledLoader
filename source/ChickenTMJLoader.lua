@@ -125,7 +125,9 @@ end
 ---@param layer TMJLayer
 ---@return integer
 function ChickenTMJLoader:getGidAtLayerPos(x, y, layer)
-	return layer.data[(y - 1) * layer.width + x] - 1
+	local posInArr = y * layer.width + x + 1
+
+	return layer.data[posInArr] - 1
 end
 
 ---@param self ChickenTMJLoader
