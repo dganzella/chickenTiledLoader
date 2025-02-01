@@ -50,7 +50,7 @@ To release resources completely, you need to call ```ChickenTMJLoader.releaseCac
 ## limitations
 
 - Can only load TMJ files (Tiled map JSON format), no TMX
-- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itself or as a sepatate, referenced TSJ. Multiple TMJ files can reference the same TSJ tileset, no problem.
+- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itself or as a separate, referenced TSJ. Multiple TMJ files can reference the same TSJ tileset, no problem.
 - Only supports orthogonal maps
 - The name of the images referenced in the TMJ/TSJ files need to follow playdate's pattern, aka. image-table-width-height.png
 
