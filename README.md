@@ -19,7 +19,7 @@ copy the following sources to your project:
 import 'ChickenTMJLoader'
 
 local tmjloader = ChickenTMJLoader.new()
-tmjloader:loadTMJ('assets/example.tmj')
+tmjloader:loadTMJ('assets/example.tmj', TMJOpenMode.normal)
 ```
 and then use the methods available in the tmjloader object itself, down in the documentation
 
@@ -60,20 +60,30 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 
 ```
 ---@class ChickenTMJLoader
+---@field fullPath string
 ---@field root TMJRoot
 ---@field tileset TSJTileset
 ---@field finalImagePath string
 ---@field tileMapsByLayer table<string, playdate.graphics.tilemap>
----@field loadTMJ fun(self: ChickenTMJLoader, path: string)
+---@field objectsById table<integer, TMJObject>
+---@field tilePropertiesByGid table<integer, table<string,TMJPropertyType>>
+---@field loadTMJ fun(self: ChickenTMJLoader, fullPath: string, openMode: TMJOpenMode)
+---@field mapIdToObjects fun(self: ChickenTMJLoader)
+---@field mapGidToProperties fun(self: ChickenTMJLoader)
 ---@field getTileMapForLayer fun(self: ChickenTMJLoader, layerName: string): playdate.graphics.tilemap
 ---@field getObjectsForLayer fun(self: ChickenTMJLoader, layerName: string): TMJObject[]
 ---@field getLayerByName fun(self: ChickenTMJLoader, layerName: string): TMJLayer
----@field getPropsObj fun(self: ChickenTMJLoader, obj: TMJObject): table<string, string|integer|number|boolean>
----@field getPropsTileOfGid fun(self: ChickenTMJLoader, gid: integer): table<string, string|integer|number|boolean>
----@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, string|integer|number|boolean>
+---@field getPropsObj fun(self: ChickenTMJLoader, obj: TMJObject): table<string, TMJPropertyType>
+---@field getPropsTileOfGid fun(self: ChickenTMJLoader, gid: integer): table<string, TMJPropertyType>
+---@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, TMJPropertyType>]
+---@field getPropsOfMap fun(self: ChickenTMJLoader): table<string, TMJPropertyType>
 ---@field getGidAtLayerPos fun(self: ChickenTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
+---@field X2EVERYTHING fun(self: ChickenTMJLoader)
 ---@field releaseTilemaps fun(self: ChickenTMJLoader)
+---@field layerHasAnyObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): boolean
+---@field getFirstObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): TMJObject
 ---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
+---@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer): playdate.graphics.image?
 ```
 
 ```
