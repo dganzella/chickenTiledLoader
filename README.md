@@ -39,7 +39,7 @@ The library now supports world loading
     local tmjloader = tmxWorldLoader.maps['example']
 ```
 
-The world contains a table of tsj map name to ChickenTMJLoader called ```maps```
+The world contains a table of tmj map names to ChickenTMJLoader instances called ```maps```
 
 ## releasing data
 
