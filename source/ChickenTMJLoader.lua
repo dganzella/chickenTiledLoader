@@ -217,6 +217,7 @@ function ChickenTMJLoader:getTileMapForLayer(layerName)
 	return self.tileMapsByLayer[layerName]
 end
 
+---@package
 ---@param self ChickenTMJLoader
 function ChickenTMJLoader:mapIdToObjects()
 	for i = 1, #self.root.layers do
@@ -231,6 +232,7 @@ function ChickenTMJLoader:mapIdToObjects()
 	end
 end
 
+---@package
 ---@param self ChickenTMJLoader
 function ChickenTMJLoader:mapGidToProperties()
 	for i = 1, #self.tileset.tiles do

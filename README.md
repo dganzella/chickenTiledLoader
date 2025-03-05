@@ -45,6 +45,8 @@ The world contains a table of tmj map names to ChickenTMJLoader instances called
 
 To release most resources, let the variables run out of scope, and make sure not to keep any reference.
 
+You can also use ```ChickenTMJLoader:releaseTilemaps()``` if you no longer need the tilemaps but still need other information.
+
 To release resources completely, you need to call ```ChickenTMJLoader.releaseCachedImageTables()``` to release cached image tables. They are kept cached so they dont load multiple copies over and over again for multiple files that point to the same image tilesets
 
 ## using lua files for speed loading
@@ -69,6 +71,7 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 
 ```
 ---@class ChickenTMJLoader
+---@field isLuaPDZ boolean
 ---@field fullPath string
 ---@field root TMJRoot
 ---@field tileset TSJTileset
@@ -77,17 +80,14 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 ---@field objectsById table<integer, TMJObject>
 ---@field tilePropertiesByGid table<integer, table<string,TMJPropertyType>>
 ---@field loadTMJ fun(self: ChickenTMJLoader, fullPath: string, openMode: TMJOpenMode)
----@field mapIdToObjects fun(self: ChickenTMJLoader)
----@field mapGidToProperties fun(self: ChickenTMJLoader)
 ---@field getTileMapForLayer fun(self: ChickenTMJLoader, layerName: string): playdate.graphics.tilemap
 ---@field getObjectsForLayer fun(self: ChickenTMJLoader, layerName: string): TMJObject[]
 ---@field getLayerByName fun(self: ChickenTMJLoader, layerName: string): TMJLayer
 ---@field getPropsObj fun(self: ChickenTMJLoader, obj: TMJObject): table<string, TMJPropertyType>
 ---@field getPropsTileOfGid fun(self: ChickenTMJLoader, gid: integer): table<string, TMJPropertyType>
----@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, TMJPropertyType>]
+---@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, TMJPropertyType>
 ---@field getPropsOfMap fun(self: ChickenTMJLoader): table<string, TMJPropertyType>
 ---@field getGidAtLayerPos fun(self: ChickenTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
----@field X2EVERYTHING fun(self: ChickenTMJLoader)
 ---@field releaseTilemaps fun(self: ChickenTMJLoader)
 ---@field layerHasAnyObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): boolean
 ---@field getFirstObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): TMJObject
