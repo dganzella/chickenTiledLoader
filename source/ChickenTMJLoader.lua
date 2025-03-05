@@ -13,6 +13,7 @@ TMJOpenMode = { ---@class OpenMode.*
 }
 
 ---@class ChickenTMJLoader
+---@field isLuaPDZ boolean
 ---@field fullPath string
 ---@field root TMJRoot
 ---@field tileset TSJTileset
@@ -28,7 +29,7 @@ TMJOpenMode = { ---@class OpenMode.*
 ---@field getLayerByName fun(self: ChickenTMJLoader, layerName: string): TMJLayer
 ---@field getPropsObj fun(self: ChickenTMJLoader, obj: TMJObject): table<string, TMJPropertyType>
 ---@field getPropsTileOfGid fun(self: ChickenTMJLoader, gid: integer): table<string, TMJPropertyType>
----@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, TMJPropertyType>]
+---@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, TMJPropertyType>
 ---@field getPropsOfMap fun(self: ChickenTMJLoader): table<string, TMJPropertyType>
 ---@field getGidAtLayerPos fun(self: ChickenTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
 ---@field releaseTilemaps fun(self: ChickenTMJLoader)
@@ -36,6 +37,7 @@ TMJOpenMode = { ---@class OpenMode.*
 ---@field getFirstObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): TMJObject
 ---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
 ---@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer): playdate.graphics.image?
+---@field buildProps fun(self: ChickenTMJLoader, props: TProperty[] | table<string,TProperty>): table<string, TMJPropertyType>
 
 ChickenTMJLoader = {}
 ---@return ChickenTMJLoader
@@ -57,6 +59,7 @@ function ChickenTMJLoader:init()
 	self.objectsById = {}
 	self.tilePropertiesByGid = {}
 	self.finalImagePath = ''
+	self.isLuaPDZ = false
 end
 
 ---@param self ChickenTMJLoader
@@ -138,19 +141,37 @@ function ChickenTMJLoader:getFirstObjectWithType(layerName, type)
 		end)
 end
 
+---@package
 ---@param self ChickenTMJLoader
----@param obj TMJObject
+---@param props TProperty[] | table<string,TProperty>
 ---@return table<string, TMJPropertyType>
-function ChickenTMJLoader:getPropsObj(obj)
+function ChickenTMJLoader:buildProps(props)
 	local ret = {}
 
-	if obj.properties ~= nil then
-		for i = 1, #obj.properties do
-			ret[obj.properties[i].name] = obj.properties[i].value
+	if props ~= nil then
+		if self.isLuaPDZ then
+			for k, v in pairs(props or {}) do
+				if type(v) == 'table' and v['id'] ~= nil then
+					ret[k] = v['id']
+				else
+					ret[k] = v
+				end
+			end
+		else
+			for i = 1, #props do
+				ret[props[i].name] = props[i].value
+			end
 		end
 	end
 
 	return ret
+end
+
+---@param self ChickenTMJLoader
+---@param obj TMJObject
+---@return table<string, TMJPropertyType>
+function ChickenTMJLoader:getPropsObj(obj)
+	return self:buildProps(obj.properties)
 end
 
 ---@param self ChickenTMJLoader
@@ -164,27 +185,13 @@ end
 ---@param tile TSJTile
 ---@return table<string, TMJPropertyType>
 function ChickenTMJLoader:getPropsOfTile(tile)
-	local ret = {}
-
-	for i = 1, #tile.properties do
-		ret[tile.properties[i].name] = tile.properties[i].value
-	end
-
-	return ret
+	return self:buildProps(tile.properties)
 end
 
 ---@param self ChickenTMJLoader
 ---@return table<string, TMJPropertyType>
 function ChickenTMJLoader:getPropsOfMap()
-	local ret = {}
-
-	if self.root.properties ~= nil then
-		for i = 1, #self.root.properties do
-			ret[self.root.properties[i].name] = self.root.properties[i].value
-		end
-	end
-
-	return ret
+	return self:buildProps(self.root.properties)
 end
 
 ---@param self ChickenTMJLoader
@@ -234,13 +241,21 @@ end
 
 ---@param self ChickenTMJLoader
 ---@param fullPath string
----@param loadMode TMJOpenMode
-function ChickenTMJLoader:loadTMJ(fullPath, loadMode)
+---@param openMode TMJOpenMode
+function ChickenTMJLoader:loadTMJ(fullPath, openMode)
 	self.fullPath = fullPath
 
-	self.root = json.decodeFile(self.fullPath)
+	local cachePdzPath = strReplace(self.fullPath, '.tmj', '.pdz')
 
-	if loadMode == TMJOpenMode.loadRootOnly then
+	self.isLuaPDZ = playdate.file.exists(cachePdzPath) --[[@as boolean]]
+
+	if self.isLuaPDZ then
+		self.root = playdate.file.run(cachePdzPath) --[[@as TMJRoot]]
+	else
+		self.root = json.decodeFile(self.fullPath)
+	end
+
+	if openMode == TMJOpenMode.loadRootOnly then
 		return
 	end
 
@@ -248,16 +263,29 @@ function ChickenTMJLoader:loadTMJ(fullPath, loadMode)
 
 	local folderPath = getPath(self.fullPath)
 
-	if self.root.tilesets[1].source ~= nil then
-		self.tileset = json.decodeFile(folderPath .. self.root.tilesets[1].source)
+	local isReferencedTileset = (not self.isLuaPDZ and self.root.tilesets[1].source ~= nil) or (
+		self.isLuaPDZ and self.root.tilesets[1].filename ~= nil)
+
+	local referencedTilesetPath = tern(self.isLuaPDZ, self.root.tilesets[1].filename, self.root.tilesets[1].source)
+
+	if isReferencedTileset then
+		local finalPathTSJPath = folderPath .. referencedTilesetPath
+		local tsjCachedPdzPath = strReplace(finalPathTSJPath, '.tsj', '.pdz')
+		local tsjCachedExists = playdate.file.exists(tsjCachedPdzPath)
+
+		if tsjCachedExists then
+			self.tileset = playdate.file.run(tsjCachedPdzPath) --[[@as TSJTileset]]
+		else
+			self.tileset = json.decodeFile(finalPathTSJPath)
+		end
 	else
 		self.tileset = self.root.tilesets[1] --[[@as TSJTileset]]
 	end
 
 	self:mapGidToProperties()
 
-	if self.root.tilesets[1].source ~= nil then
-		self.finalImagePath = folderPath .. getPath(self.root.tilesets[1].source) .. self.tileset.image
+	if isReferencedTileset then
+		self.finalImagePath = folderPath .. getPath(referencedTilesetPath) .. self.tileset.image
 	else
 		self.finalImagePath = folderPath .. self.tileset.image
 	end

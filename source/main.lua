@@ -60,26 +60,6 @@ end
 
 playdate.graphics.sprite.addWallSprites(tmjloader.tileMapsByLayer['floor'], tileGidsThatAreNotGrounds)
 
---Example, finding a special sand tileset
-local bg = tmjloader:getLayerByName('floor')
-
-for i = 0, tmjloader.root.width - 1 do
-	for j = 0, tmjloader.root.height - 1 do
-		local gid = tmjloader:getGidAtLayerPos(i, j, bg)
-		if gid ~= nil then
-			local properties = tmjloader:getPropsTileOfGid(gid)
-
-			if properties.sandPit == true then
-				local sand = gfx.sprite.new()
-				sand:moveTo(i * tmjloader.root.tilewidth, j * tmjloader.root.tileheight)
-				sand:setCollideRect(0, 0, 16, 16)
-				sand.isSand = true
-				sand:add()
-			end
-		end
-	end
-end
-
 ---creating character
 
 ---@type TMJObject[]

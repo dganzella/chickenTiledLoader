@@ -1,3 +1,12 @@
+-- GENERIC HELPER FUNCTIONS
+---@param cond boolean
+---@param T any
+---@param F any
+---@return any
+function tern(cond, T, F)
+	if cond then return T else return F end
+end
+
 -- STRING HELPER FUNCTIONS
 
 ---@param inputstr string
