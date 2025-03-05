@@ -53,8 +53,8 @@ Now ChickenTMJLoader supports the loading of lua files instead of TMJ/TSJ. All y
 
 You can also use the settings "Repeat last export on save" option to always export to lua when the TMJ/TSJ file is saved, so you keep the lua file updated.
 
-ps. It will always try to load the lua file first, if available.
-ps. The lua file will actually become a PDZ file in runtime
+ps. It will always try to load the lua file first, if available.  
+ps. The lua file will actually become a PDZ file in runtime.  
 
 ## limitations
 
