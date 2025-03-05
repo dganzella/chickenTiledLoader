@@ -5,3 +5,4 @@
 ---@field tilewidth integer
 ---@field tilesets TSJTilesetRef[]|TSJTileset[]
 ---@field layers TMJLayer[]
+---@field properties TProperty[] | table<string,TProperty>

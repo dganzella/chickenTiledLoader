@@ -1,3 +1,3 @@
 ---@class TSJTile
 ---@field id integer
----@field properties TProperty[]
+---@field properties TProperty[] | table<string, TProperty>

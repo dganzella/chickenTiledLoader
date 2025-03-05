@@ -9,4 +9,4 @@
 ---@field type string
 ---@field id integer
 ---@field gid integer?
----@field properties TProperty[]
+---@field properties TProperty[] | table<string,TProperty>
