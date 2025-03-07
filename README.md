@@ -62,7 +62,7 @@ ps. The lua file will actually become a PDZ file in runtime.
 
 Now ChickenTMJLoader supports two open modes. ```TMJOpenMode.normal``` and ```TMJOpenMode.loadRootOnly```.
 
-The difference is that ```TMJOpenMode.loadRootOnly``` will only parse the tiled file and do nothing else. Wont create ```playdate.graphics.tilemap``` or load the referenced images.
+The difference is that ```TMJOpenMode.loadRootOnly``` will only parse the tiled file and do nothing else. Wont create ```playdate.graphics.tilemap``` or ```playdate.graphics.imagetable```.
 
 This is useful for speed loading maps where you just need basic information, like the size of the map, position, or if it contaisn or not an object -- for example, when building in-game navigation maps.
 
