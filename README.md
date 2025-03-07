@@ -64,7 +64,7 @@ Now ChickenTMJLoader supports two open modes. ```TMJOpenMode.normal``` and ```TM
 
 The difference is that ```TMJOpenMode.loadRootOnly``` will only parse the tiled file and do nothing else. Wont create ```playdate.graphics.tilemap``` or ```playdate.graphics.imagetable```.
 
-This is useful for speed loading maps where you just need basic information, like the size of the map, position, or if it contaisn or not an object -- for example, when building in-game navigation maps.
+This is useful for speed loading maps where you just need basic information, like the size of the map, position, or if it contains or not an specific object like a save point -- for example, when building in-game navigation maps.
 
 ## limitations
 
