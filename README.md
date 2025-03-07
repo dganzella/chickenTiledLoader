@@ -58,6 +58,14 @@ You can also use the settings "Repeat last export on save" option to always expo
 ps. It will always try to load the lua file first, if available.  
 ps. The lua file will actually become a PDZ file in runtime.  
 
+## open modes
+
+Now ChickenTMJLoader supports two open modes. ```TMJOpenMode.normal``` and ```TMJOpenMode.loadRootOnly```.
+
+The difference is that ```TMJOpenMode.loadRootOnly``` will only parse the tiled file and do nothing else. Wont create ```playdate.graphics.tilemap``` or load the referenced images.
+
+This is useful for speed loading maps where you just need basic information, like the size of the map, position, or if it contaisn or not an object -- for example, when building in-game navigation maps.
+
 ## limitations
 
 - Can only load TMJ files (Tiled map JSON format), no TMX
