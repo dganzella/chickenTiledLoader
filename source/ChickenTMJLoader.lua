@@ -153,19 +153,21 @@ end
 ---@param initialGid integer
 ---@param width integer
 ---@param height integer
+---@param tile_size integer
 ---@return playdate.graphics.image?
-function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height)
-	local finalImage = playdate.graphics.image.new(width * constants_base.tile_size, height * constants_base.tile_size)
+function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tile_size)
+	local finalImage = playdate.graphics.image.new(width * tile_size, height * tile_size)
 
 	local imagetable = ChickenTMJLoader.cachedImageTables[self.finalImagePath]
+	if !imagetable then return print("No image table at image path") end
 
 	local widthImageTable, _ = imagetable:getSize()
 
 	playdate.graphics.lockFocus(finalImage)
 	for x = 0, width - 1 do
 		for y = 0, height - 1 do
-			imagetable:getImage(initialGid + (y * widthImageTable) + x):draw(x * constants_base.tile_size,
-				y * constants_base.tile_size)
+			imagetable:getImage(initialGid + (y * widthImageTable) + x):draw(x * tile_size,
+				y * tile_size)
 		end
 	end
 	playdate.graphics.unlockFocus()
