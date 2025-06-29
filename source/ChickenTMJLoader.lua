@@ -1,4 +1,80 @@
-import 'helperfunctions'
+-- GENERIC HELPER FUNCTIONS
+---@param cond boolean
+---@param T any
+---@param F any
+---@return any
+local function tern(cond, T, F)
+	if cond then return T else return F end
+end
+
+-- STRING HELPER FUNCTIONS
+
+---@param inputstr string
+---@param tofind string
+---@return integer?
+local function strFirstIndexOf(inputstr, tofind)
+	return inputstr:find(tofind, 1, true)
+end
+
+---@param inputstr string
+---@param target string
+---@param replacement string
+---@return string
+local function strReplace(inputstr, target, replacement)
+	local str, _ = string.gsub(inputstr, target, replacement)
+	return str
+end
+
+--ARRAY HELPER FUNCTIONS
+
+---@param arr any[]
+---@param f function
+---@return any[]
+local function arrFilter(arr, f)
+	local t = {}
+	for i = 1, #arr do
+		if f(arr[i]) then
+			table.insert(t, arr[i])
+		end
+	end
+	return t
+end
+
+---@param arr any[]
+---@param f fun(a: any): boolean
+---@return any?
+local function arrFindFirst(arr, f)
+	for i = 1, #arr do
+		if f(arr[i]) then
+			return arr[i]
+		end
+	end
+
+	return nil
+end
+
+---@param arr any[]
+---@param f fun(a: any): boolean
+---@return boolean
+local function arrSome(arr, f)
+	for i = 1, #arr do
+		if f(arr[i]) then
+			return true
+		end
+	end
+
+	return false
+end
+
+--path
+---@param str string
+---@param sep string?
+local function getPath(str, sep)
+	sep = sep or '/'
+	return str:match('(.*' .. sep .. ')')
+end
+
+------------------ End of Helper Functions ------------------
 
 ---@enum TMJLayerTypes
 TMJLayerTypes = { ---@class TMJLayerTypes.*

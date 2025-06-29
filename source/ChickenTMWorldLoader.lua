@@ -1,3 +1,21 @@
+-- Helper Functions
+
+---@param str string
+---@param sep string?
+local function getPath(str, sep)
+	sep = sep or '/'
+	return str:match('(.*' .. sep .. ')')
+end
+
+---@param inputstr string
+---@param target string
+---@param replacement string
+---@return string
+local function strReplace(inputstr, target, replacement)
+	local str, _ = string.gsub(inputstr, target, replacement)
+	return str
+end
+
 ---@class ChickenTMWorldLoader
 ---@field maps table<string, ChickenTMJLoader>
 ---@field mapdefs table<string, TMJMap>

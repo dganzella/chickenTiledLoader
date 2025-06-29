@@ -8,6 +8,18 @@ import 'ChickenTMJLoader'
 gfx = playdate.graphics
 geo = playdate.geometry
 
+---@param arr any[]
+---@return boolean
+local function arrContains(arr, val)
+	for _, value in ipairs(arr) do
+		if value == val then
+			return true
+		end
+	end
+
+	return false
+end
+
 playdate.display.setRefreshRate(30)
 gfx.sprite.setAlwaysRedraw(true)
 
