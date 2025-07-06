@@ -3,7 +3,7 @@ import 'CoreLibs/graphics'
 import 'CoreLibs/object'
 import 'CoreLibs/sprites'
 
-import 'ChickenTMJLoader'
+import 'pdtiledTMJLoader'
 
 gfx = playdate.graphics
 geo = playdate.geometry
@@ -24,7 +24,7 @@ playdate.display.setRefreshRate(30)
 gfx.sprite.setAlwaysRedraw(true)
 
 ---tmj loading
-local tmjloader = ChickenTMJLoader.new()
+local tmjloader = pdtiledTMJLoader.new()
 tmjloader:loadTMJ('assets/example.tmj')
 
 ---creating sprites for tile layers
