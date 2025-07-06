@@ -16,28 +16,28 @@ local function strReplace(inputstr, target, replacement)
 	return str
 end
 
----@class ChickenTMWorldLoader
+---@class pdtiledTMWorldLoader
 ---@field maps table<string, ChickenTMJLoader>
 ---@field mapdefs table<string, TMJMap>
 ---@field world TMWorld
----@field loadTMWorld fun(self: ChickenTMWorldLoader, path: string)
+---@field loadTMWorld fun(self: pdtiledTMWorldLoader, path: string)
 
-ChickenTMWorldLoader = {}
----@return ChickenTMWorldLoader
-function ChickenTMWorldLoader.new() return {} end
+pdtiledTMWorldLoader = {}
+---@return pdtiledTMWorldLoader
+function pdtiledTMWorldLoader.new() return {} end
 
-class('ChickenTMWorldLoader').extends()
-ChickenTMWorldLoader.new = ChickenTMWorldLoader
+class('pdtiledTMWorldLoader').extends()
+pdtiledTMWorldLoader.new = pdtiledTMWorldLoader
 
----@param self ChickenTMWorldLoader
-function ChickenTMWorldLoader:init()
+---@param self pdtiledTMWorldLoader
+function pdtiledTMWorldLoader:init()
 	self.maps = {}
 	self.mapdefs = {}
 end
 
----@param self ChickenTMWorldLoader
+---@param self pdtiledTMWorldLoader
 ---@param path string
-function ChickenTMWorldLoader:loadTMWorld(path)
+function pdtiledTMWorldLoader:loadTMWorld(path)
 	self.world = json.decodeFile(path)
 
 	for i = 1, #self.world.maps do
