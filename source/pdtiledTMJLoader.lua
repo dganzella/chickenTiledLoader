@@ -88,7 +88,7 @@ TMJOpenMode = { ---@class OpenMode.*
 	loadRootOnly = 'loadRootOnly',
 }
 
----@class ChickenTMJLoader
+---@class pdtiledTMJLoader
 ---@field isLuaPDZ boolean
 ---@field fullPath string
 ---@field root TMJRoot
@@ -97,40 +97,40 @@ TMJOpenMode = { ---@class OpenMode.*
 ---@field tileMapsByLayer table<string, playdate.graphics.tilemap>
 ---@field objectsById table<integer, TMJObject>
 ---@field tilePropertiesByGid table<integer, table<string,TMJPropertyType>>
----@field loadTMJ fun(self: ChickenTMJLoader, fullPath: string, openMode: TMJOpenMode)
----@field mapIdToObjects fun(self: ChickenTMJLoader)
----@field mapGidToProperties fun(self: ChickenTMJLoader)
----@field getTileMapForLayer fun(self: ChickenTMJLoader, layerName: string): playdate.graphics.tilemap
----@field getObjectsForLayer fun(self: ChickenTMJLoader, layerName: string): TMJObject[]
----@field getLayerByName fun(self: ChickenTMJLoader, layerName: string): TMJLayer
----@field getPropsObj fun(self: ChickenTMJLoader, obj: TMJObject): table<string, TMJPropertyType>
----@field getPropsTileOfGid fun(self: ChickenTMJLoader, gid: integer): table<string, TMJPropertyType>
----@field getPropsOfTile fun(self: ChickenTMJLoader, tile: TSJTile): table<string, TMJPropertyType>
----@field getPropsOfMap fun(self: ChickenTMJLoader): table<string, TMJPropertyType>
----@field getGidAtLayerPos fun(self: ChickenTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
----@field releaseTilemaps fun(self: ChickenTMJLoader)
----@field layerHasAnyObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): boolean
----@field getFirstObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): TMJObject
----@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
----@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer, tileSize: integer): playdate.graphics.image?
----@field buildProps fun(self: ChickenTMJLoader, props: TProperty[] | table<string,TProperty>): table<string, TMJPropertyType>
+---@field loadTMJ fun(self: pdtiledTMJLoader, fullPath: string, openMode: TMJOpenMode)
+---@field mapIdToObjects fun(self: pdtiledTMJLoader)
+---@field mapGidToProperties fun(self: pdtiledTMJLoader)
+---@field getTileMapForLayer fun(self: pdtiledTMJLoader, layerName: string): playdate.graphics.tilemap
+---@field getObjectsForLayer fun(self: pdtiledTMJLoader, layerName: string): TMJObject[]
+---@field getLayerByName fun(self: pdtiledTMJLoader, layerName: string): TMJLayer
+---@field getPropsObj fun(self: pdtiledTMJLoader, obj: TMJObject): table<string, TMJPropertyType>
+---@field getPropsTileOfGid fun(self: pdtiledTMJLoader, gid: integer): table<string, TMJPropertyType>
+---@field getPropsOfTile fun(self: pdtiledTMJLoader, tile: TSJTile): table<string, TMJPropertyType>
+---@field getPropsOfMap fun(self: pdtiledTMJLoader): table<string, TMJPropertyType>
+---@field getGidAtLayerPos fun(self: pdtiledTMJLoader, x: integer, y: integer, layer: TMJLayer): integer
+---@field releaseTilemaps fun(self: pdtiledTMJLoader)
+---@field layerHasAnyObjectWithType fun(self: pdtiledTMJLoader, layerName: string, type: string): boolean
+---@field getFirstObjectWithType fun(self: pdtiledTMJLoader, layerName: string, type: string): TMJObject
+---@field getTileImageByGid fun(self: pdtiledTMJLoader, gid: integer): playdate.graphics.image?
+---@field getTileImageByGidGrid fun(self: pdtiledTMJLoader, initialGid: integer, width: integer, height: integer, tileSize: integer): playdate.graphics.image?
+---@field buildProps fun(self: pdtiledTMJLoader, props: TProperty[] | table<string,TProperty>): table<string, TMJPropertyType>
 
-ChickenTMJLoader = {}
----@return ChickenTMJLoader
-function ChickenTMJLoader.new() return {} end
+pdtiledTMJLoader = {}
+---@return pdtiledTMJLoader
+function pdtiledTMJLoader.new() return {} end
 
-class('ChickenTMJLoader').extends()
-ChickenTMJLoader.new = ChickenTMJLoader
+class('pdtiledTMJLoader').extends()
+pdtiledTMJLoader.new = pdtiledTMJLoader
 
 ---@type table<string, playdate.graphics.imagetable?>
-ChickenTMJLoader.cachedImageTables = {}
+pdtiledTMJLoader.cachedImageTables = {}
 
-ChickenTMJLoader.releaseCachedImageTables = function()
-	ChickenTMJLoader.cachedImageTables = {}
+pdtiledTMJLoader.releaseCachedImageTables = function()
+	pdtiledTMJLoader.cachedImageTables = {}
 end
 
----@param self ChickenTMJLoader
-function ChickenTMJLoader:init()
+---@param self pdtiledTMJLoader
+function pdtiledTMJLoader:init()
 	self.tileMapsByLayer = {}
 	self.objectsById = {}
 	self.tilePropertiesByGid = {}
@@ -138,16 +138,16 @@ function ChickenTMJLoader:init()
 	self.isLuaPDZ = false
 end
 
----@param self ChickenTMJLoader
-function ChickenTMJLoader:releaseTilemaps()
+---@param self pdtiledTMJLoader
+function pdtiledTMJLoader:releaseTilemaps()
 	self.tileMapsByLayer = {}
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param gid integer
 ---@return playdate.graphics.image?
-function ChickenTMJLoader:getTileImageByGid(gid)
-	return ChickenTMJLoader.cachedImageTables[self.finalImagePath]:getImage(gid)
+function pdtiledTMJLoader:getTileImageByGid(gid)
+	return pdtiledTMJLoader.cachedImageTables[self.finalImagePath]:getImage(gid)
 end
 
 ---@param initialGid integer
@@ -155,10 +155,10 @@ end
 ---@param height integer
 ---@param tileSize integer
 ---@return playdate.graphics.image?
-function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tileSize)
+function pdtiledTMJLoader:getTileImageByGidGrid(initialGid, width, height, tileSize)
 	local finalImage = playdate.graphics.image.new(width * tileSize, height * tileSize)
 
-	local imagetable = ChickenTMJLoader.cachedImageTables[self.finalImagePath]
+	local imagetable = pdtiledTMJLoader.cachedImageTables[self.finalImagePath]
 	if !imagetable then return print("No image table at image path") end
 
 	local widthImageTable, _ = imagetable:getSize()
@@ -175,10 +175,10 @@ function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tileS
 	return finalImage
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param layerName string
 ---@return TMJObject[]
-function ChickenTMJLoader:getObjectsForLayer(layerName)
+function pdtiledTMJLoader:getObjectsForLayer(layerName)
 	---@type TMJLayer
 	local res = arrFindFirst(self.root.layers, function(l)
 		return l.name == layerName
@@ -191,11 +191,11 @@ function ChickenTMJLoader:getObjectsForLayer(layerName)
 	return {}
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param layerName string
 ---@param type string
 ---@return boolean
-function ChickenTMJLoader:layerHasAnyObjectWithType(layerName, type)
+function pdtiledTMJLoader:layerHasAnyObjectWithType(layerName, type)
 	local objs = self:getObjectsForLayer(layerName)
 
 	return arrSome(objs,
@@ -205,11 +205,11 @@ function ChickenTMJLoader:layerHasAnyObjectWithType(layerName, type)
 		end)
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param layerName string
 ---@param type string
 ---@return TMJObject
-function ChickenTMJLoader:getFirstObjectWithType(layerName, type)
+function pdtiledTMJLoader:getFirstObjectWithType(layerName, type)
 	local objs = self:getObjectsForLayer(layerName)
 
 	return arrFindFirst(objs,
@@ -220,10 +220,10 @@ function ChickenTMJLoader:getFirstObjectWithType(layerName, type)
 end
 
 ---@package
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param props TProperty[] | table<string,TProperty>
 ---@return table<string, TMJPropertyType>
-function ChickenTMJLoader:buildProps(props)
+function pdtiledTMJLoader:buildProps(props)
 	local ret = {}
 
 	if props ~= nil then
@@ -245,59 +245,59 @@ function ChickenTMJLoader:buildProps(props)
 	return ret
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param obj TMJObject
 ---@return table<string, TMJPropertyType>
-function ChickenTMJLoader:getPropsObj(obj)
+function pdtiledTMJLoader:getPropsObj(obj)
 	return self:buildProps(obj.properties)
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param gid integer
 ---@return table<string, TMJPropertyType>
-function ChickenTMJLoader:getPropsTileOfGid(gid)
+function pdtiledTMJLoader:getPropsTileOfGid(gid)
 	return self.tilePropertiesByGid[gid] or {}
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param tile TSJTile
 ---@return table<string, TMJPropertyType>
-function ChickenTMJLoader:getPropsOfTile(tile)
+function pdtiledTMJLoader:getPropsOfTile(tile)
 	return self:buildProps(tile.properties)
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@return table<string, TMJPropertyType>
-function ChickenTMJLoader:getPropsOfMap()
+function pdtiledTMJLoader:getPropsOfMap()
 	return self:buildProps(self.root.properties)
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param name string
 ---@return TMJLayer
-function ChickenTMJLoader:getLayerByName(name)
+function pdtiledTMJLoader:getLayerByName(name)
 	return arrFindFirst(self.root.layers, function(f) return f.name == name end)
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param x number
 ---@param y number
 ---@param layer TMJLayer
 ---@return integer
-function ChickenTMJLoader:getGidAtLayerPos(x, y, layer)
+function pdtiledTMJLoader:getGidAtLayerPos(x, y, layer)
 	return layer.data[y * layer.width + x + 1] - 1
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param layerName string
 ---@return playdate.graphics.tilemap
-function ChickenTMJLoader:getTileMapForLayer(layerName)
+function pdtiledTMJLoader:getTileMapForLayer(layerName)
 	return self.tileMapsByLayer[layerName]
 end
 
 ---@package
----@param self ChickenTMJLoader
-function ChickenTMJLoader:mapIdToObjects()
+---@param self pdtiledTMJLoader
+function pdtiledTMJLoader:mapIdToObjects()
 	for i = 1, #self.root.layers do
 		local layer = self.root.layers[i]
 
@@ -311,18 +311,18 @@ function ChickenTMJLoader:mapIdToObjects()
 end
 
 ---@package
----@param self ChickenTMJLoader
-function ChickenTMJLoader:mapGidToProperties()
+---@param self pdtiledTMJLoader
+function pdtiledTMJLoader:mapGidToProperties()
 	for i = 1, #self.tileset.tiles do
 		local tile = self.tileset.tiles[i]
 		self.tilePropertiesByGid[tile.id] = self:getPropsOfTile(tile)
 	end
 end
 
----@param self ChickenTMJLoader
+---@param self pdtiledTMJLoader
 ---@param fullPath string
 ---@param openMode TMJOpenMode
-function ChickenTMJLoader:loadTMJ(fullPath, openMode)
+function pdtiledTMJLoader:loadTMJ(fullPath, openMode)
 	self.fullPath = fullPath
 
 	local cachePdzPath = strReplace(self.fullPath, '.tmj', '.pdz')
@@ -370,10 +370,10 @@ function ChickenTMJLoader:loadTMJ(fullPath, openMode)
 		self.finalImagePath = folderPath .. self.tileset.image
 	end
 
-	if ChickenTMJLoader.cachedImageTables[self.finalImagePath] == nil then
+	if pdtiledTMJLoader.cachedImageTables[self.finalImagePath] == nil then
 		local tilesetPathWithoutTable = self.finalImagePath:sub(1, strFirstIndexOf(self.finalImagePath, '-table-') - 1)
 
-		ChickenTMJLoader.cachedImageTables[self.finalImagePath] = playdate.graphics.imagetable.new(
+		pdtiledTMJLoader.cachedImageTables[self.finalImagePath] = playdate.graphics.imagetable.new(
 			tilesetPathWithoutTable)
 	end
 
@@ -386,7 +386,7 @@ function ChickenTMJLoader:loadTMJ(fullPath, openMode)
 		local layer = tileLayers[i]
 
 		local tilemap = playdate.graphics.tilemap.new()
-		tilemap:setImageTable(ChickenTMJLoader.cachedImageTables[self.finalImagePath])
+		tilemap:setImageTable(pdtiledTMJLoader.cachedImageTables[self.finalImagePath])
 
 		tilemap:setSize(layer.width, layer.height)
 
