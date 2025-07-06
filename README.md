@@ -10,7 +10,7 @@ Load Tiled maps in playdate ( https://www.mapeditor.org/ )
 copy the following sources to your project:
 
 - source/pdtiledTMJLoader.lua
-- source/pdtiledMWorldLoader.lua
+- source/pdtiledTMWorldLoader.lua
 - source/Models/*.lua (optional, for autocomplete)
 
 ## basic usage
