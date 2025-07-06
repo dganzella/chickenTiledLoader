@@ -1,9 +1,15 @@
 # pdtiled
-Load Tiled maps in playdate (https://www.mapeditor.org/) in TMJ (Tiled Map JSON) format
+Load Tiled maps in playdate (https://www.mapeditor.org/)
 
 ![image](https://github.com/dganzella/chickenTiledLoader/assets/30127664/4c71ca16-abd9-410b-9f04-4c87b9eed6e1)
 ![image](https://github.com/user-attachments/assets/2f45008e-ecdb-4308-9517-b6feafe0e5c2)
 
+## limitations
+
+- Can only load TMJ files (Tiled map JSON format), no TMX
+- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itself or as a separate, referenced TSJ. Multiple TMJ files can reference the same TSJ tileset, no problem.
+- Only supports orthogonal maps
+- The name of the images referenced in the TMJ/TSJ files need to follow playdate's pattern, aka. image-table-width-height.png
 
 ## installation
 
@@ -64,13 +70,6 @@ Now pdtiled supports two open modes. ```TMJOpenMode.normal``` and ```TMJOpenMode
 The difference is that ```TMJOpenMode.loadRootOnly``` will only parse the tiled file and do nothing else. Wont create ```playdate.graphics.tilemap``` or ```playdate.graphics.imagetable```.
 
 This is useful for speed loading maps where you just need basic information, like the size of the map, position, or if it contains or not an specific object like a save point -- for example, when building in-game navigation maps.
-
-## limitations
-
-- Can only load TMJ files (Tiled map JSON format), no TMX
-- Only supports a single TSJ tileset per TMJ. Either embedded in the TMJ itself or as a separate, referenced TSJ. Multiple TMJ files can reference the same TSJ tileset, no problem.
-- Only supports orthogonal maps
-- The name of the images referenced in the TMJ/TSJ files need to follow playdate's pattern, aka. image-table-width-height.png
 
 ## documentation
 
