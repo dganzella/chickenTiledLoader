@@ -44,7 +44,7 @@ The library now supports world loading
     local tmjloader = tmxWorldLoader.maps['example']
 ```
 
-The world contains a table of tmj map names to pdtiledTMJLoader instances called ```maps```
+The world contains a table of TMJ map names to pdtiledTMJLoader instances called ```maps```
 
 ## releasing data
 
