@@ -25,7 +25,7 @@ gfx.sprite.setAlwaysRedraw(true)
 
 ---tmj loading
 local tmjloader = pdtiledTMJLoader.new()
-tmjloader:loadTMJ('assets/example.tmj')
+tmjloader:loadTMJ('assets/example.tmj', TMJOpenMode.normal)
 
 ---creating sprites for tile layers
 
