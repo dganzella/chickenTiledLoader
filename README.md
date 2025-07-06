@@ -11,7 +11,6 @@ copy the following sources to your project:
 
 - source/ChickenTMJLoader.lua
 - source/ChickenTMWorldLoader.lua
-- source/helperfunctions.lua
 - source/Models/*.lua (optional, for autocomplete)
 
 ## basic usage
@@ -100,7 +99,7 @@ The project supports playdate type annotations: https://github.com/Minalien/play
 ---@field layerHasAnyObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): boolean
 ---@field getFirstObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): TMJObject
 ---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
----@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer): playdate.graphics.image?
+---@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer, tile_size: integer): playdate.graphics.image?
 ```
 
 ```
