@@ -1,4 +1,80 @@
-import 'helperfunctions'
+-- GENERIC HELPER FUNCTIONS
+---@param cond boolean
+---@param T any
+---@param F any
+---@return any
+local function tern(cond, T, F)
+	if cond then return T else return F end
+end
+
+-- STRING HELPER FUNCTIONS
+
+---@param inputstr string
+---@param tofind string
+---@return integer?
+local function strFirstIndexOf(inputstr, tofind)
+	return inputstr:find(tofind, 1, true)
+end
+
+---@param inputstr string
+---@param target string
+---@param replacement string
+---@return string
+local function strReplace(inputstr, target, replacement)
+	local str, _ = string.gsub(inputstr, target, replacement)
+	return str
+end
+
+--ARRAY HELPER FUNCTIONS
+
+---@param arr any[]
+---@param f function
+---@return any[]
+local function arrFilter(arr, f)
+	local t = {}
+	for i = 1, #arr do
+		if f(arr[i]) then
+			table.insert(t, arr[i])
+		end
+	end
+	return t
+end
+
+---@param arr any[]
+---@param f fun(a: any): boolean
+---@return any?
+local function arrFindFirst(arr, f)
+	for i = 1, #arr do
+		if f(arr[i]) then
+			return arr[i]
+		end
+	end
+
+	return nil
+end
+
+---@param arr any[]
+---@param f fun(a: any): boolean
+---@return boolean
+local function arrSome(arr, f)
+	for i = 1, #arr do
+		if f(arr[i]) then
+			return true
+		end
+	end
+
+	return false
+end
+
+--path
+---@param str string
+---@param sep string?
+local function getPath(str, sep)
+	sep = sep or '/'
+	return str:match('(.*' .. sep .. ')')
+end
+
+------------------ End of Helper Functions ------------------
 
 ---@enum TMJLayerTypes
 TMJLayerTypes = { ---@class TMJLayerTypes.*
@@ -77,19 +153,21 @@ end
 ---@param initialGid integer
 ---@param width integer
 ---@param height integer
+---@param tile_size integer
 ---@return playdate.graphics.image?
-function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height)
-	local finalImage = playdate.graphics.image.new(width * constants_base.tile_size, height * constants_base.tile_size)
+function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tile_size)
+	local finalImage = playdate.graphics.image.new(width * tile_size, height * tile_size)
 
 	local imagetable = ChickenTMJLoader.cachedImageTables[self.finalImagePath]
+	if !imagetable then return print("No image table at image path") end
 
 	local widthImageTable, _ = imagetable:getSize()
 
 	playdate.graphics.lockFocus(finalImage)
 	for x = 0, width - 1 do
 		for y = 0, height - 1 do
-			imagetable:getImage(initialGid + (y * widthImageTable) + x):draw(x * constants_base.tile_size,
-				y * constants_base.tile_size)
+			imagetable:getImage(initialGid + (y * widthImageTable) + x):draw(x * tile_size,
+				y * tile_size)
 		end
 	end
 	playdate.graphics.unlockFocus()
