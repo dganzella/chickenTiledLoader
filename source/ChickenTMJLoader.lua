@@ -112,7 +112,7 @@ TMJOpenMode = { ---@class OpenMode.*
 ---@field layerHasAnyObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): boolean
 ---@field getFirstObjectWithType fun(self: ChickenTMJLoader, layerName: string, type: string): TMJObject
 ---@field getTileImageByGid fun(self: ChickenTMJLoader, gid: integer): playdate.graphics.image?
----@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer): playdate.graphics.image?
+---@field getTileImageByGidGrid fun(self: ChickenTMJLoader, initialGid: integer, width: integer, height: integer, tileSize: integer): playdate.graphics.image?
 ---@field buildProps fun(self: ChickenTMJLoader, props: TProperty[] | table<string,TProperty>): table<string, TMJPropertyType>
 
 ChickenTMJLoader = {}
@@ -153,10 +153,10 @@ end
 ---@param initialGid integer
 ---@param width integer
 ---@param height integer
----@param tile_size integer
+---@param tileSize integer
 ---@return playdate.graphics.image?
-function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tile_size)
-	local finalImage = playdate.graphics.image.new(width * tile_size, height * tile_size)
+function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tileSize)
+	local finalImage = playdate.graphics.image.new(width * tileSize, height * tileSize)
 
 	local imagetable = ChickenTMJLoader.cachedImageTables[self.finalImagePath]
 	if !imagetable then return print("No image table at image path") end
@@ -166,8 +166,8 @@ function ChickenTMJLoader:getTileImageByGidGrid(initialGid, width, height, tile_
 	playdate.graphics.lockFocus(finalImage)
 	for x = 0, width - 1 do
 		for y = 0, height - 1 do
-			imagetable:getImage(initialGid + (y * widthImageTable) + x):draw(x * tile_size,
-				y * tile_size)
+			imagetable:getImage(initialGid + (y * widthImageTable) + x):draw(x * tileSize,
+				y * tileSize)
 		end
 	end
 	playdate.graphics.unlockFocus()
