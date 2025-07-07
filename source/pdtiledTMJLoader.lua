@@ -159,7 +159,6 @@ function pdtiledTMJLoader:getTileImageByGidGrid(initialGid, width, height, tileS
 	local finalImage = playdate.graphics.image.new(width * tileSize, height * tileSize)
 
 	local imagetable = pdtiledTMJLoader.cachedImageTables[self.finalImagePath]
-	if !imagetable then return print("No image table at image path") end
 
 	local widthImageTable, _ = imagetable:getSize()
 
